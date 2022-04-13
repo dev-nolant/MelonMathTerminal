@@ -1,1 +1,0 @@
-# Fake test cog, just to test the defaults.
