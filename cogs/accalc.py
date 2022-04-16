@@ -4,7 +4,9 @@ import sys
 import time
 import pandas as pd
 
-__DESCRIPTION__ = """calculates acceleration on a calculated resultant.\nUSAGE: calculate [file] [optional:name of object in file]"""
+__DESCRIPTION__ = """calculates acceleration on a calculated resultant.\n\
+USAGE: calculate [file] [optional:name of object in file]"""
+
 start_time = time.time()
 
 """[General director set]
