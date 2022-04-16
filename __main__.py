@@ -5,7 +5,7 @@ import ast
 import os
 import sys
 
-help_commands = ['help', 'clear']
+help_commands = ['help', 'clear', 'restart']
 # ----------------------------------------------------------------
 # io Initializers
 f = io.StringIO()
@@ -71,37 +71,55 @@ def clear_terminal():
 
 class Cog(object):
     def __init__(self, object):
-        # Hard Coded Help Commands
-        if object == "help":
+    # Hard Coded Help Commands
+       
+        if( object == "help" ):
             self.module_help(object)
             pass
-        if object == "clear":
+        elif( object == "clear" ):
             clear_terminal()
             pass
-        if object == "exit":
+        elif( object == "exit" ):
             sys.exit()
+        elif( object == "restart"):
+            os.execv(sys.executable, ['python'] + sys.argv)
 
-        # Dynamic Coded Commands
-        if object in loaded_cogs:
-            self.string_cog = f"cogs.{object}"
-            self.command_method = getattr(cogs, object)
-            self.commands = dir(self.command_method)
-        elif object not in help_commands:
-            print(f"COMMAND NOT FOUND: {object}")
-            self.module_help(object)
-
+    # Dynamic Coded Commands
+        else:
+            if object in loaded_cogs:
+                self.string_cog = f"cogs.{object}"
+                self.command_method = getattr(cogs, object)
+                self.commands = dir(self.command_method)
+            elif object not in help_commands:
+                print(f"COMMAND NOT FOUND: {object}")
+                self.module_help(object)
+    '''[Help Module]
+    Return help for the user after called.
+    This will grab all cogs from \cogs\ and 
+    their description in them, then return 
+    to the user.
+    '''
     def module_help(self, on_cog=None):
         fixed_list = ast.literal_eval(loaded_cogs)
         count_of_cogs = len(fixed_list)
         print(count_of_cogs, "Cogs loaded successfully")
         print("-"*count_of_cogs*10)  # print deliminer
+        print("BUILT-IN: ")
+        for builtInCommand in help_commands:
+            print(builtInCommand)
+        print("-"*count_of_cogs*10)  # print deliminer
         counter = 0
         for cog in fixed_list:
             command_method = getattr(cogs, cog)
-            description = command_method.__DESCRIPTION__
-            print(f"{cog.upper()}\n{description}\n")
+            try:
+                description = command_method.__DESCRIPTION__
+                print(f"""{cog.upper()}\n{description}\n""")
+            except:
+                print(f"""{cog.upper()}\nThere has been no description and usage set.\n""")
+            
         print("-"*count_of_cogs*10)  # print deliminer
 
+    
     def execute(self, command, *args):
 
         # Interprets commands from mangle commands
