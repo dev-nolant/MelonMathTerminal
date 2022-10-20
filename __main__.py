@@ -64,24 +64,24 @@ def clear_terminal():
     print("----------------------------------------")
     print("--------Math Systems Terminal-----------")
     print("--------Designed by: Nolan Taft---------")
-    print("--------Email: contact@nolant.org-------")
+    print("--------Email: contact@nolantaft.com----")
     print("----------------------------------------")
 # Command Handler
 
 
 class Cog(object):
     def __init__(self, object):
-    # Hard Coded Help Commands
-       
-        if( object == "help" ):
+        # Hard Coded Help Commands
+
+        if(object == "help"):
             self.module_help(object)
             pass
-        elif( object == "clear" ):
+        elif(object == "clear"):
             clear_terminal()
             pass
-        elif( object == "exit" ):
+        elif(object == "exit"):
             sys.exit()
-        elif( object == "restart"):
+        elif(object == "restart"):
             os.execv(sys.executable, ['python'] + sys.argv)
 
     # Dynamic Coded Commands
@@ -99,6 +99,7 @@ class Cog(object):
     their description in them, then return 
     to the user.
     '''
+
     def module_help(self, on_cog=None):
         fixed_list = ast.literal_eval(loaded_cogs)
         count_of_cogs = len(fixed_list)
@@ -115,11 +116,11 @@ class Cog(object):
                 description = command_method.__DESCRIPTION__
                 print(f"""{cog.upper()}\n{description}\n""")
             except:
-                print(f"""{cog.upper()}\nThere has been no description and usage set.\n""")
-            
+                print(
+                    f"""{cog.upper()}\nThere has been no description and usage set.\n""")
+
         print("-"*count_of_cogs*10)  # print deliminer
 
-    
     def execute(self, command, *args):
 
         # Interprets commands from mangle commands
@@ -129,7 +130,10 @@ class Cog(object):
         if command in self.commands:
             try:
                 module_output = args_method(*args)
-                print(module_output)
+                if(module_output):
+                    print(module_output)
+                else:
+                    pass
             except Exception as e:
                 raise CommandErrorHandler(command, e)
 
