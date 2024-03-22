@@ -33,7 +33,7 @@ class CogErrorHandler(Exception):
         elif cog not in loaded_cogs:
             self.message = f"Cog was not imported. No Cog exists by the name: {cog}"
         else:
-            self.message = f"Went un-imported."
+            self.message = "Went un-imported."
         super().__init__(f"COG ATTEMPTED: {cog}", self.message)
 # Command Exception Handler
 
@@ -52,8 +52,8 @@ class CommandErrorHandler(Exception):
         elif additional_message:
             self.message = f"Command was processed, but returned an error. {additional_message}"
         else:
-            self.message = f"Went un-executed."
-        super().__init__(f"COMMAND ATTEMPTED: ",
+            self.message = "Went un-executed."
+        super().__init__("COMMAND ATTEMPTED: ",
                          f"{command}", "-> ", self.message)
 
 # ----------------------------------------------------------------
