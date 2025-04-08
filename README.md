@@ -1,4 +1,4 @@
-# AdvancedMathCLI
+# MelonMath
 Advanced math in a simple CLI formatting.
 
 # Notes
